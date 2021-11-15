@@ -16,6 +16,15 @@ const HomeScreen = (props) => {
       <TouchableOpacity style={styles.text}  onPress= {()=>{props.navigation.navigate('ImageScreen')}}>
         <Text>Go To Image Screen</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.text}  onPress= {()=>{props.navigation.navigate('Counter')}}>
+        <Text>Go To Counter Screen</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.text}  onPress= {()=>{props.navigation.navigate('Colors')}}>
+        <Text>Go To Colors Screen</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.text}  onPress= {()=>{props.navigation.navigate('ColorEditor')}}>
+        <Text>Go To Color Editor Screen</Text>
+      </TouchableOpacity>
     </View>
   )
   
