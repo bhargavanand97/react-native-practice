@@ -5,38 +5,23 @@ import ColorEditor from '../Components/colorEditor';
 /* Reducer function */
 
 const reducer = (state,action) => {
-    if(action.colorToChange === 'red' && (state.red + action.changeValue >= 0) && (state.red + action.changeValue <= 255) ) {
-        return {...state, red: state.red + action.changeValue }
+    if(action.type === 'change_red' && (state.red + action.payload >= 0) && (state.red + action.payload <= 255) ) {
+        return {...state, red: state.red + action.payload }
     }    
-    if(action.colorToChange === 'green' && (state.green + action.changeValue >= 0) && (state.green + action.changeValue <= 255) ) {
-        return { ...state, green: state.green + action.changeValue}
+    if(action.type === 'change_green' && (state.green + action.payload >= 0) && (state.green + action.payload <= 255) ) {
+        return { ...state, green: state.green + action.payload}
     }
-    if(action.colorToChange === 'blue' && (state.blue + action.changeValue >= 0) && (state.blue + action.changeValue <= 255) ) {
-        return {...state, blue: state.blue + action.changeValue}
+    if(action.type === 'change_blue' && (state.blue + action.payload >= 0) && (state.blue + action.payload <= 255) ) {
+        return {...state, blue: state.blue + action.payload}
     }
-    if(action.colorToChange === 'all' && action.changeValue == 0) {
+    if(action.type === 'all' && action.payload == 0) {
         return {...state, red:0 ,green: 0 , blue: 0}
     }    
     else return state;
 }
 
-const ColorEditorScreen = () => {
-    // const [redColor,setRedColor] = useState(0);
-    // const [greenColor,setGreenColor] = useState(0);
-    // const [blueColor,setBlueColor] = useState(0);
-    const COLOR_INCREMENT_VALUE = 15;
-
-    // const setColor = (colorName,changeValue) => {
-        // if(colorName === 'red' && (redColor + changeValue >= 0) && (redColor + changeValue <= 255) ) {
-        //     setRedColor(redColor + changeValue)
-        // }
-        // if(colorName === 'green' && (greenColor + changeValue >= 0) && (greenColor + changeValue <= 255) ) {
-        //     setGreenColor(greenColor + changeValue)
-        // }
-        // if(colorName === 'blue' && (blueColor + changeValue >= 0) && (blueColor + changeValue <= 255) ) {
-        //     setBlueColor(blueColor + changeValue)
-        // }
-    // }
+const ColorEditorScreen = () => {   
+    const COLOR_INCREMENT_VALUE = 15;  
 
     /* Using Reducer */
     const stateObj = {
@@ -45,28 +30,28 @@ const ColorEditorScreen = () => {
         blue: 0
     }
 
-    const[state,dispatch] = useReducer(reducer,stateObj);
+    const[state,dispatch] = useReducer(reducer,stateObj);    
 
     return (
         <View>
             <Text>Color Editor Screen</Text>
             <Text> Current color values are  Red : {state.red} Green : {state.green} Blue : {state.blue} </Text> 
             <Button title = "Zero all values" onPress={()=> {
-              dispatch({colorToChange: 'all', changeValue: 0})
+              dispatch({type: 'all', payload: 0})
             }} />
             <ColorEditor 
-                onIncrease={() => dispatch({colorToChange: 'red', changeValue: COLOR_INCREMENT_VALUE})}
-                onDecrease={() => dispatch({colorToChange: 'red', changeValue: COLOR_INCREMENT_VALUE * -1 })}  
+                onIncrease={() => dispatch({type: 'change_red', payload: COLOR_INCREMENT_VALUE})}
+                onDecrease={() => dispatch({type: 'change_red', payload: COLOR_INCREMENT_VALUE * -1 })}  
                 eachColor = "Red"
             />
              <ColorEditor 
-                onIncrease={() => dispatch({colorToChange: 'green', changeValue: COLOR_INCREMENT_VALUE})}
-                onDecrease={() => dispatch({colorToChange: 'green', changeValue: COLOR_INCREMENT_VALUE * -1})}                
+                onIncrease={() => dispatch({type: 'change_green', payload: COLOR_INCREMENT_VALUE})}
+                onDecrease={() => dispatch({type: 'change_green', payload: COLOR_INCREMENT_VALUE * -1})}                
                 eachColor = "Green"
             />
              <ColorEditor 
-               onIncrease={() => dispatch({colorToChange: 'blue', changeValue: COLOR_INCREMENT_VALUE})}
-               onDecrease={() => dispatch({colorToChange: 'blue', changeValue: COLOR_INCREMENT_VALUE * -1})}  
+               onIncrease={() => dispatch({type: 'change_blue', payload: COLOR_INCREMENT_VALUE})}
+               onDecrease={() => dispatch({type: 'change_blue', payload: COLOR_INCREMENT_VALUE * -1})}  
                 eachColor = "Blue"
             />
            
