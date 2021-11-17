@@ -14,6 +14,9 @@ const reducer = (state,action) => {
     if(action.colorToChange === 'blue' && (state.blue + action.changeValue >= 0) && (state.blue + action.changeValue <= 255) ) {
         return {...state, blue: state.blue + action.changeValue}
     }
+    if(action.colorToChange === 'all' && action.changeValue == 0) {
+        return {...state, red:0 ,green: 0 , blue: 0}
+    }    
     else return state;
 }
 
@@ -48,11 +51,9 @@ const ColorEditorScreen = () => {
         <View>
             <Text>Color Editor Screen</Text>
             <Text> Current color values are  Red : {state.red} Green : {state.green} Blue : {state.blue} </Text> 
-            {/* <Button title = "Zero all values" onPress={()=> {
-                setRedColor(0);               
-                setGreenColor(0);
-                setBlueColor(0);
-            }} /> */}
+            <Button title = "Zero all values" onPress={()=> {
+              dispatch({colorToChange: 'all', changeValue: 0})
+            }} />
             <ColorEditor 
                 onIncrease={() => dispatch({colorToChange: 'red', changeValue: COLOR_INCREMENT_VALUE})}
                 onDecrease={() => dispatch({colorToChange: 'red', changeValue: COLOR_INCREMENT_VALUE * -1 })}  
